@@ -5,18 +5,18 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   return (
     <tr>
       {isHeader ? (
-        textSecondCell === null ? (
-          <th colSpan={2}>{textFirstCell}</th>
-        ) : (
+        textSecondCell ? (
           <>
             <th>{textFirstCell}</th>
             <th>{textSecondCell}</th>
           </>
+        ) : (
+          <th colSpan={2}>{textFirstCell}</th>
         )
       ) : (
         <>
           <td>{textFirstCell}</td>
-          <td>{textSecondCell}</td>
+          {textSecondCell && <td>{textSecondCell}</td>}
         </>
       )}
     </tr>

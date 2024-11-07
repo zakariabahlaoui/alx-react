@@ -1,26 +1,33 @@
 import React from "react";
-import CourseListRow from "./CourseListRow";
 import { shallow } from "enzyme";
+import CourseListRow from "./CourseListRow";
 
-describe("Course List Row component test", () => {
-  it("should render without crashing", () => {
-    const wrapper = shallow(<CourseListRow textFirstCell="test" />);
+describe("CourseListRow Component", () => {
+  it("should render one cell with colspan = 2 when isHeader is true and textSecondCell does not exist", () => {
+    const wrapper = shallow(
+      <CourseListRow isHeader={true} textFirstCell="First Cell" />
+    );
 
-    expect(wrapper.exists()).toBe(true);
+    // Check if it renders one <th> with colspan = 2
+    const thElement = wrapper.find("th");
+    expect(thElement).toHaveLength(1);
+    expect(thElement.prop("colSpan")).toBe(2);
+    expect(thElement.text()).toBe("First Cell");
   });
 
-  it("should render one cell with colspan = 2 when textSecondCell null", () => {
-    const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" textSecondCell={null} />);
+  it("should render two cells when isHeader is true and textSecondCell is present", () => {
+    const wrapper = shallow(
+      <CourseListRow
+        isHeader={true}
+        textFirstCell="First Cell"
+        textSecondCell="Second Cell"
+      />
+    );
 
-    expect(wrapper.find("tr").children()).toHaveLength(1);
-    expect(wrapper.find("tr").childAt(0).html()).toEqual('<th colSpan="2">test</th>');
-  });
-
-  it("should render two cells when textSecondCell not null", () => {
-    const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test" />);
-
-    expect(wrapper.find("tr").children()).toHaveLength(2);
-    expect(wrapper.find("tr").childAt(0).html()).toEqual("<td>test</td>");
-    expect(wrapper.find("tr").childAt(1).html()).toEqual("<td>test</td>");
+    // Check if it renders two <th> elements
+    const thElements = wrapper.find("th");
+    expect(thElements).toHaveLength(2);
+    expect(thElements.at(0).text()).toBe("First Cell");
+    expect(thElements.at(1).text()).toBe("Second Cell");
   });
 });

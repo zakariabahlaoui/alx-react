@@ -1,9 +1,17 @@
-.App-body {
-  font-size: 1rem;
-  padding: 2em;
-  height: 45%;
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
 }
 
-form input {
-  margin: 10px;
+.login input {
+  padding: 4px;
+}
+
+.login button {
+  padding: 4px;
+  background-color: #e0354b;
+  color: #fff;
+  border: none;
 }
