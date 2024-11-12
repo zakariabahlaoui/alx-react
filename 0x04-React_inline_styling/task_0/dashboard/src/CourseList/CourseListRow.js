@@ -1,47 +1,45 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
+import "./CourseList.css";
 
-const rowStyle = {
-  backgroundColor: "#f5f5f5ab",
-};
-
-const headerStyle = {
-  backgroundColor: "#deb5b545",
-};
-
-function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
+const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
+  // props:
+  // - isHeader: bool, default: false
+  // - textFirstCell: string, required
+  // - textSecondCell: string, default: null
+  if (isHeader) {
+    if (textSecondCell === null) {
+      return (
+        <tr style={{ backgroundColor: "#deb5b545" }}>
+          <th colSpan="2">{textFirstCell}</th>
+        </tr>
+      );
+    } else {
+      return (
+        <tr style={{ backgroundColor: "#deb5b545" }}>
+          <th>{textFirstCell}</th>
+          <th>{textSecondCell}</th>
+        </tr>
+      );
+    }
+  }
   return (
-    <tr style={rowStyle}>
-      {isHeader ? (
-        textSecondCell === null ? (
-          <th style={headerStyle} colSpan={2}>
-            {textFirstCell}
-          </th>
-        ) : (
-          <>
-            <th style={headerStyle}>{textFirstCell}</th>
-            <th style={headerStyle}>{textSecondCell}</th>
-          </>
-        )
-      ) : (
-        <>
-          <td>{textFirstCell}</td>
-          <td>{textSecondCell}</td>
-        </>
-      )}
+    <tr style={{ backgroundColor: "#f5f5f5ab" }}>
+      <td>{textFirstCell}</td>
+      <td>{textSecondCell}</td>
     </tr>
   );
-}
-
-CourseListRow.propTypes = {
-  isHeader: PropTypes.bool,
-  textFirstCell: PropTypes.string.isRequired,
-  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 CourseListRow.defaultProps = {
   isHeader: false,
   textSecondCell: null,
+};
+
+CourseListRow.propTypes = {
+  isHeader: propTypes.bool,
+  textFirstCell: propTypes.string.isRequired,
+  textSecondCell: propTypes.oneOfType([propTypes.string, propTypes.number]),
 };
 
 export default CourseListRow;

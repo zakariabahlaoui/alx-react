@@ -1,23 +1,24 @@
-import React from "react";
-import Login from "./Login";
-import { shallow } from "enzyme";
+import { shallow, mount, unmount } from '../../config/setupTests';
+import WithLoggingHOC from '../HOC/WithLogging';
+import Login from './Login';
 
 
+// shallow render/mount login component
 describe('<Login />', () => {
-    it('Login renders without crashing', () => {
-        const wrapper = shallow(<Login />);
-        expect(wrapper).toBeDefined();
-    });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+	
+	it('Tests that Login renders without crashing', () => {
+		const wrapper = shallow(<Login />);
+		expect(wrapper.exists()).toBe(true);
+	})
 
-    it('Login renders 2 label tags', () => {
-        const wrapper = shallow(<Login />);
-        const element = wrapper.find('label');
-        expect(element).toHaveLength(2)
-    });
-
-    it('Login renders 2 input tags', () => {
-        const wrapper = shallow(<Login />);
-        const element = wrapper.find('input');
-        expect(element).toHaveLength(2)
-    });
+	it('Tests that the component renders 2 <input> and 2 <label> tags', () => {
+		const Example = WithLoggingHOC(() => <Login />);
+		const wrapper = mount(<Example />);
+		expect(wrapper.find('input').length).toBe(2);
+		expect(wrapper.find('label').length).toBe(2);
+		wrapper.unmount();
+	})
 });

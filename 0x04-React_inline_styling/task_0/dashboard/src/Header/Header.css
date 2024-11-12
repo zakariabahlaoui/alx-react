@@ -1,11 +1,21 @@
-.App-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 3px solid #c1384c;
-    color: #c1384c;
-  }
+:root {
+	--primary-color: #E11D3F;
+	font: 18px Helvetica, Arial, sans-serif;
+}
 
-  .App-logo{
-    width: 200px;
-    height: auto;
-  }
+h1 {
+	margin-left: 3rem;
+}
+
+.App-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: var(--primary-color);
+	border-bottom: 3px solid var(--primary-color);
+}
+
+.App-logo {
+	height: 200px;
+	width: 200px;
+}

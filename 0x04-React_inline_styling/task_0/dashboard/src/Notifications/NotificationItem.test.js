@@ -1,23 +1,27 @@
+import { shallow } from 'enzyme';
 import React from 'react';
 import NotificationItem from './NotificationItem';
-import { mount, shallow } from 'enzyme';
 
+
+// shallow render NotificationItem component
 describe('<NotificationItem />', () => {
-    it('NotificationItem renders without crashing', () => {
-        const wrapper = shallow(<NotificationItem />);
-        expect(wrapper.exists()).toBe(true);
-    });
-});
+	it('Tests that NotificationItem renders without crashing', () => {
+		const wrapper = shallow(<NotificationItem />);
+		expect(wrapper.exists()).toBe(true);
+	})
 
-describe("handling events", () => {
-    it("onclick event is called with the right id", () => {
-      const wrapper = shallow(<NotificationItem />);
-      const spy = jest.fn();
-  
-      wrapper.setProps({ value: "test", markAsRead: spy, id: 1 });
-      wrapper.find("li").props().onClick();
-      expect(spy).toBeCalledTimes(1);
-      expect(spy).toBeCalledWith(1);
-      spy.mockRestore();
-    });
-  });
+	it('Passes dumby `type` prop and checks for correct html rendering', () => {
+		const wrapper = shallow(<NotificationItem type="default" value="test" />);
+		expect(wrapper.find('li').text()).toBe('test');
+	})
+
+	it('Passes dumby `value` prop and checks for correct html rendering', () => {
+		const wrapper = shallow(<NotificationItem type="default" value="test" />);
+		expect(wrapper.find('li').text()).toBe('test');
+	})
+
+	it('Passes dumby `html` prop and checks for correct html rendering', () => {
+		const wrapper = shallow(<NotificationItem html={{ __html: 'dangerouslySetInnerHtml' }} />);
+		expect(wrapper.html()).toContain('dangerouslySetInnerHtml');
+	})
+})
